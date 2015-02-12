@@ -1,3 +1,5 @@
+:focus {outline:none !important;} /* remove dotted outlines in FF */
+
 body { font-size: 140%; }
 
 td.details-control {
@@ -12,6 +14,11 @@ pre {
 	font-size:10px;
 }
 
-.cursor {
-  cursor:pointer;
+.panel-heading.collapser a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+}
+.panel-heading.collapser a.collapsed:after {
+    content:"\e080";
 }
