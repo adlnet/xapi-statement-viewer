@@ -1,0 +1,17 @@
+body { font-size: 140%; }
+
+td.details-control {
+	background: url('img/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.shown td.details-control {
+	background: url('img/details_close.png') no-repeat center center;
+}
+
+pre {
+	font-size:10px;
+}
+
+.cursor {
+  cursor:pointer;
+}
