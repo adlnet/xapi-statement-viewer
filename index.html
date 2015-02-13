@@ -46,6 +46,12 @@
       },
     };
 
+    var dateTimeSettings = {
+      // format: 'YYYY-MM-DDTHH:mm:ss', // ISO 8601
+      showTodayButton: true,
+      showClear: true
+    };
+
     gmore = null;
 
     // Retreive statements from the LRS
@@ -188,8 +194,8 @@
           }
       }
 
-      $('#search-statements-since-date').datetimepicker();
-      $('#search-statements-until-date').datetimepicker();
+      $('#search-statements-since-date').datetimepicker(dateTimeSettings);
+      $('#search-statements-until-date').datetimepicker(dateTimeSettings);
 
       $("#search-predefined-verb").change(function() {
           var $this = $(this);
