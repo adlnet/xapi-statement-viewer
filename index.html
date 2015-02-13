@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 	<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
@@ -23,6 +24,7 @@
   <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
   <script type="text/javascript" language="javascript" src="js/moment.min.js"></script>
   <script type="text/javascript" language="javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+  <script type="text/javascript" language="javascript" src="js/bootstrap-growl.min.js"></script>
   <script type="text/javascript" language="javascript" src="js/cryptojs_v3.1.2.min.js"></script>
   <script type="text/javascript" language="javascript" src="js/xapiwrapper.min.js"></script>
 	<script type="text/javascript" language="javascript" class="init">
@@ -31,6 +33,18 @@
       "auth" : "Basic " + toBase64("xapi-tools" + ":" + "xapi-tools"),
     };
     ADL.XAPIWrapper.changeConfig(conf);
+
+    var notificationSettings = {
+      animate: {
+        enter: 'animated fadeInUp',
+        exit: 'animated fadeOutDown'
+      },
+      type: "success",
+      placement: {
+        from: "bottom",
+        align: "right"
+      },
+    };
 
     gmore = null;
 
@@ -77,6 +91,7 @@
 
             // update the status in the HTML
             if (r.status == 200) {
+              $.growl({ title: "Status " + r.status + " " + r.statusText }, notificationSettings);
               if (response.more != "") {
                 gmore = response.more;
               } else {
