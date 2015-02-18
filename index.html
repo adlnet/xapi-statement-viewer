@@ -42,9 +42,10 @@
                 <option></option>
               </select>
             </div>
+
             <div class="form-group col-md-6">
               <label for="search-verb-sort">Verb Sort</label>
-              <select class="form-control" name="search-verb-sort" id="search-verb-sort">
+              <select class="form-control" aria-describedby="Verb Sort" id="search-verb-sort">
                 <option value="">Descending</option>
                 <option value="true">Ascending</option>
               </select>
@@ -63,18 +64,36 @@
 
           <div class="row">
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-9">
               <label for="search-actor-email">Actor Email</label>
               <input type="text" class="form-control" value="" aria-describedby="Agent" placeholder="tyler.mulligan.ctr@adlnet.gov" id="search-actor-email" />
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="search-related-agents">Related Agents</label>
+              <select class="form-control" aria-describedby="Related Agents" id="search-related-agents">
+                <option></option>
+                <option>false</option>
+                <option>true</option>
+              </select>
             </div>
 
           </div><!-- .row -->
 
           <div class="row">
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-9">
               <label for="search-activity-id">Activity ID</label>
               <input type="text" class="form-control" value="" aria-describedby="Activity ID" placeholder="http://adlnet.gov/activities/question" id="search-activity-id" />
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="search-related-activities">Related Activities</label>
+              <select class="form-control" aria-describedby="Related Activities" id="search-related-activities">
+                <option></option>
+                <option>false</option>
+                <option>true</option>
+              </select>
             </div>
 
           </div><!-- .row -->
@@ -90,7 +109,7 @@
 
           <div class="row">
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
               <label for="search-statements-since-date">Since Date</label>
               <div class="input-group date" id="search-statements-since-date">
                 <input type="text" class="form-control" />
@@ -100,7 +119,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
               <label for="search-statements-until-date">Until Date</label>
               <div class="input-group date" id="search-statements-until-date">
                 <input type="text" class="form-control" />
@@ -110,11 +129,7 @@
               </div>
             </div>
 
-          </div><!-- .row -->
-
-          <div class="row">
-
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-2">
               <label for="search-limit">Limit</label>
               <input type="text" class="form-control" value="" aria-describedby="Limit" placeholder="25" id="search-limit" />
             </div>

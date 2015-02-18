@@ -58,7 +58,9 @@ define(function (require) {
         var verbSort = $("#search-verb-sort").val();
         var verbId = $("#search-user-verb-id").val();
         var actorEmail = $("#search-actor-email").val();
+        var relatedAgents = $("#search-related-agents").val();
         var activityId = $("#search-activity-id").val();
+        var relatedActivities = $("#search-related-activities").val();
         var registrationId = $("#search-registration-id").val();
         var sinceDate = $("#search-statements-since-date input").val();
         var untilDate = $("#search-statements-until-date input").val();
@@ -69,7 +71,9 @@ define(function (require) {
         if (verbId != "") { search['verb'] = verbId; }
         if (verbSort != "") { search['ascending'] = verbSort; }
         if (actorEmail != "") { search['agent'] = JSON.stringify({ "mbox": "mailto:" + actorEmail}); }
+        if (relatedAgents != "") { search['related_agents'] = relatedAgents; }
         if (activityId != "") { search['activity'] = activityId; }
+        if (relatedActivities != "") { search['related_activities'] = relatedActivities; }
         if (registrationId != "") { search['registration'] = registrationId; }
         if (sinceDate != "") { search['since'] = sinceDate; }
         if (untilDate != "") { search['until'] = untilDate; }
