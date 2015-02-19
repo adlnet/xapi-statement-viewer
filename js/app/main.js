@@ -48,6 +48,7 @@ define(function (require) {
           "rowCallback": function( row, data ) {
             var display = moment(data.timestamp);
             $('td:eq(0)', row).html( '<span title="' + data.timestamp + '">' + display.fromNow() + '</span>' );
+            if (data.object.hasOwnProperty('name')) { $('td:eq(3)', row).html( data.object.name ); }
           },
           "order": [[0, 'desc']],
           "pageLength": 25
