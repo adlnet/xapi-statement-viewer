@@ -4,11 +4,21 @@ define(function (require) {
   require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl'], function() {
 
     $(document).ready(function() {
-      var conf = {
-        "endpoint" : "https://lrs.adlnet.gov/xapi/",
-        "auth" : "Basic " + toBase64("xapi-tools" + ":" + "xapi-tools"),
-      };
-      ADL.XAPIWrapper.changeConfig(conf);
+      // Override any credentials put in the XAPIWrapper.js
+      function setupConfig() {
+          // get LRS credentials from user interface
+          var endpoint = $("#endpoint").val();
+          var user = $("#username").val();
+          var password = $("#password").val();
+
+          var conf = {
+              "endpoint" : endpoint,
+              "auth" : "Basic " + toBase64(user + ":" + password),
+          };
+          ADL.XAPIWrapper.changeConfig(conf);
+      }
+      
+      setupConfig();
 
       var notificationSettings = {
         animate: {
@@ -22,6 +32,9 @@ define(function (require) {
         },
       };
 
+      var notificationErrorSettings = jQuery.extend(true, {}, notificationSettings);
+      notificationErrorSettings.type = "danger";
+
       var dateTimeSettings = {
         // format: 'YYYY-MM-DDTHH:mm:ss', // ISO 8601
         showTodayButton: true,
@@ -29,6 +42,12 @@ define(function (require) {
       };
 
       gmore = null;
+
+      // Handle XAPIWrapper XHR Errors
+      ADL.xhrRequestOnError = function(xhr, method, url, callback, callbackargs) {
+          console.log(xhr);
+          $.growl({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
+      };
 
       var table = $('#statement-list').DataTable({
         "columns": [
@@ -94,7 +113,7 @@ define(function (require) {
         //console.log(url);
         $("#xapi-query").val(url);
 
-        ADL.XAPIWrapper.getStatements(search, more, function(r) {
+        ADL.XAPIWrapper.getStatements(search, more, function(r) {           
             //console.log(r);
             var response = $.parseJSON(r.response);
 
@@ -161,7 +180,7 @@ define(function (require) {
           if (gmore != null) {
             getStatementsWithSearch(gmore);
           } else {
-            alert("no more!");
+            $.growl({ title: "No more statments!" }, notificationErrorSettings);
           }
           e.preventDefault();
         });
@@ -190,6 +209,14 @@ define(function (require) {
         
         // Populate the table
         getStatementsWithSearch(null);
+        
+        $("#save-auth").click(function(e) {
+          // In case the endpoint information has changed
+          setupConfig();
+          $('#statement-list').DataTable().clear();
+          getStatementsWithSearch(null);
+          e.preventDefault();
+        });
 
     });
   });

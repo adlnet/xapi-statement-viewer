@@ -191,6 +191,55 @@
       </div><!-- .panel-body -->
     </div><!-- .panel -->
 
+    <div class="panel panel-primary">
+      <div class="panel-heading collapser">
+        <h4 class="panel-title"><a data-toggle="collapse" data-target="#auth" href="#auth" class="collapsed">LRS Basic Auth Setup</a></h4>
+      </div>
+      <div id="auth" class="panel-collapse collapse">
+        <div class="panel-body">
+
+          <div class="row">
+
+            <form id="endpoint-values">
+
+              <div class="form-group col-md-4">
+                <label class="control-label" for="endpoint">Endpoint</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                  <input type="url" class="form-control" value="https://lrs.adlnet.gov/xapi/" aria-describedby="LRS Endpoint" id="endpoint" required />
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label class="control-label" for="username">Username</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input type="text" class="form-control" value="xapi-tools" aria-describedby="Username" id="username" required />
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label class="control-label" for="password">Password</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input type="password" class="form-control" value="xapi-tools" aria-describedby="Password" id="password" required />
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <p class="pull-right">
+                  <a class="btn btn-primary" href="#" role="button" id="save-auth">Save Auth <i class="glyphicon glyphicon-save"></i></a>
+                </p>
+              </div>
+
+            </form><!-- #endpoint-values -->
+
+          </div><!-- .row -->
+
+        </div><!-- .panel-body -->
+      </div><!-- .panel-collapse -->
+    </div><!-- .panel -->
+
     <h3 class="text-info">About</h3>
     <div class="alert alert-info">
       <p>This tool retrieves and displays statements from an LRS. xAPI Statement Viewer is free and open-source, check it out <a href="https://github.com/adlnet/xapi-statement-viewer" target="_blank">on github</a>.</p>
