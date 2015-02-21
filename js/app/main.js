@@ -5,6 +5,12 @@ define(function (require) {
 
     $(document).ready(function() {
       // Override any credentials put in the XAPIWrapper.js
+      function resetConfig() {
+          $("#endpoint").val("https://lrs.adlnet.gov/xapi/");
+          $("#username").val("xapi-tools");
+          $("#password").val("xapi-tools");
+          setupConfig();
+      }
       function setupConfig() {
           // get LRS credentials from user interface
           var endpoint = $("#endpoint").val();
@@ -125,9 +131,9 @@ define(function (require) {
               } else {
                 gmore = null;
               }
-              console.log(gmore);
+              //console.log(gmore);
               stmts = $.parseJSON(JSON.stringify(response.statements));
-              $('#statement-list').DataTable().rows.add(stmts).draw().nodes().to$();
+              $('#statement-list').DataTable().rows.add(stmts).draw();
               prettyPrint();
             }
           });
@@ -140,7 +146,6 @@ define(function (require) {
           JSON.stringify(d, null, 2)+
           '</pre></div>';
         }
-
          
         // Add event listener for opening and closing details
         $('#statement-list tbody').on('click', 'td.details-control', function () {
@@ -176,15 +181,6 @@ define(function (require) {
 
         $(".collapser a").click(function (e) { e.preventDefault(); });
 
-        $("#more").click(function(e) {
-          if (gmore != null) {
-            getStatementsWithSearch(gmore);
-          } else {
-            $.growl({ title: "No more statments!" }, notificationErrorSettings);
-          }
-          e.preventDefault();
-        });
-
         // Populate the predefined verbs dropdown
         for (var key in ADL.verbs) {
           var $options = $("#search-predefined-verb");
@@ -209,7 +205,21 @@ define(function (require) {
         
         // Populate the table
         getStatementsWithSearch(null);
-        
+
+        $("#more").click(function(e) {
+          if (gmore != null) {
+            getStatementsWithSearch(gmore);
+          } else {
+            $.growl({ title: "No more statments!" }, notificationErrorSettings);
+          }
+          e.preventDefault();
+        });
+
+        $("#reset-auth").click(function(e) {
+          resetConfig();
+          e.preventDefault();
+        });
+
         $("#save-auth").click(function(e) {
           // In case the endpoint information has changed
           setupConfig();

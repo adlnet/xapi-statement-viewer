@@ -19,11 +19,15 @@ pre {
   text-shadow: 1px 1px 1px #ccc;
 }
 
-.panel-heading.collapser a:after {
-    font-family:'Glyphicons Halflings';
-    content:"\e114";
-    float: right;
+.panel-heading.collapser h4 > a:after {
+  font-family:'Glyphicons Halflings';
+  content:"\e114";
+  float: right;
 }
-.panel-heading.collapser a.collapsed:after {
-    content:"\e080";
+.panel-heading.collapser h4 > a.collapsed:after {
+  content:"\e080";
+}
+#get-statements-with-search {
+  position: relative;
+  top: -3px;
 }
