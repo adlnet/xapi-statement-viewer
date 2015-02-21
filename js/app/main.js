@@ -12,7 +12,7 @@ define(function (require) {
         saveConfig();
         setupConfig();
         // Populate the table
-        getStatementsWithSearch(null);
+        getStatementsWithSearch(null, 0);
       }
       
       function saveConfig() {
@@ -108,7 +108,7 @@ define(function (require) {
       });
 
       // Retreive statements from the LRS
-      function getStatementsWithSearch(more) {
+      function getStatementsWithSearch(more, curPage) {
         var verbSort = $("#search-verb-sort").val();
         var verbId = $("#search-user-verb-id").val();
         var actorEmail = $("#search-actor-email").val();
@@ -162,6 +162,7 @@ define(function (require) {
               //console.log(gmore);
               stmts = $.parseJSON(JSON.stringify(response.statements));
               $('#statement-list').DataTable().rows.add(stmts).draw();
+              $('#statement-list').DataTable().page(curPage).draw(false);
               prettyPrint();
             }
           });
@@ -227,16 +228,17 @@ define(function (require) {
 
         $("#get-statements-with-search").click(function(e) {
           $('#statement-list').DataTable().clear();
-          getStatementsWithSearch(null);
+          getStatementsWithSearch(null, 0);
           e.preventDefault();
         });
         
         // Populate the table
-        getStatementsWithSearch(null);
+        getStatementsWithSearch(null, 0);
 
         $("#more").click(function(e) {
           if (gmore != null) {
-            getStatementsWithSearch(gmore);
+            var curPage = $('#statement-list').DataTable().page();
+            getStatementsWithSearch(gmore, curPage);
           } else {
             $.growl({ title: "No more statments!" }, notificationErrorSettings);
           }
@@ -252,7 +254,7 @@ define(function (require) {
           // In case the endpoint information has changed
           saveConfig();
           $('#statement-list').DataTable().clear();
-          getStatementsWithSearch(null);
+          getStatementsWithSearch(null, 0);
           e.preventDefault();
         });
 
