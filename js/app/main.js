@@ -1,17 +1,43 @@
 define(function (require) {
   var $ = require('jquery');
   
-  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl'], function() {
+  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl', 'store'], function() {
 
     $(document).ready(function() {
       // Override any credentials put in the XAPIWrapper.js
       function resetConfig() {
-          $("#endpoint").val("https://lrs.adlnet.gov/xapi/");
-          $("#username").val("xapi-tools");
-          $("#password").val("xapi-tools");
-          setupConfig();
+        $("#endpoint").val("https://lrs.adlnet.gov/xapi/");
+        $("#username").val("xapi-tools");
+        $("#password").val("xapi-tools");
+        saveConfig();
+        setupConfig();
+        // Populate the table
+        getStatementsWithSearch(null);
       }
+      
+      function saveConfig() {
+        if (!store.enabled) {
+          console.log("your browser does not support localstorage, cannot save your auth");
+        } else {
+          var endpoint = $("#endpoint").val();
+          var user = $("#username").val();
+          var password = $("#password").val();
+          store.set('conf', { "endpoint": endpoint, "user": user, "password": password});
+        }
+        setupConfig();
+      }
+
       function setupConfig() {
+        if (store.enabled && store.get("conf")) {
+            var config = store.get('conf');
+            $("#endpoint").val(config.endpoint);
+            $("#username").val(config.user);
+            $("#password").val(config.password);
+            var conf = {
+                "endpoint" : config.endpoint,
+                "auth" : "Basic " + toBase64(config.user + ":" + config.password),
+            };
+        } else {
           // get LRS credentials from user interface
           var endpoint = $("#endpoint").val();
           var user = $("#username").val();
@@ -21,9 +47,11 @@ define(function (require) {
               "endpoint" : endpoint,
               "auth" : "Basic " + toBase64(user + ":" + password),
           };
-          ADL.XAPIWrapper.changeConfig(conf);
+        }
+
+        ADL.XAPIWrapper.changeConfig(conf);
       }
-      
+
       setupConfig();
 
       var notificationSettings = {
@@ -51,8 +79,8 @@ define(function (require) {
 
       // Handle XAPIWrapper XHR Errors
       ADL.xhrRequestOnError = function(xhr, method, url, callback, callbackargs) {
-          console.log(xhr);
-          $.growl({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
+        console.log(xhr);
+        $.growl({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
       };
 
       var table = $('#statement-list').DataTable({
@@ -222,7 +250,7 @@ define(function (require) {
 
         $("#save-auth").click(function(e) {
           // In case the endpoint information has changed
-          setupConfig();
+          saveConfig();
           $('#statement-list').DataTable().clear();
           getStatementsWithSearch(null);
           e.preventDefault();
