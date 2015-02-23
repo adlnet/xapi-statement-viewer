@@ -116,6 +116,8 @@ define(function (require) {
         var activityId = $("#search-activity-id").val();
         var relatedActivities = $("#search-related-activities").val();
         var registrationId = $("#search-registration-id").val();
+        var statementId = $("#search-statement-id").val();
+        var voidedStatementId = $("#search-voided-statement-id").val();
         var sinceDate = $("#search-statements-since-date input").val();
         var untilDate = $("#search-statements-until-date input").val();
         var limit = $("#search-limit").val();
@@ -129,6 +131,8 @@ define(function (require) {
         if (activityId != "") { search['activity'] = activityId; }
         if (relatedActivities != "") { search['related_activities'] = relatedActivities; }
         if (registrationId != "") { search['registration'] = registrationId; }
+        if (statementId != "") { search['statementId'] = statementId; }
+        if (voidedStatementId != "") { search['voidedStatementId'] = voidedStatementId; }
         if (sinceDate != "") { search['since'] = sinceDate; }
         if (untilDate != "") { search['until'] = untilDate; }
         if (limit != "") { search['limit'] = limit; }
@@ -153,14 +157,35 @@ define(function (require) {
 
             // update the status in the HTML
             if (r.status == 200) {
+
+              // Handle case where only a single statement is returned
+              // using statementId or voidedStatementId
+              if (response.hasOwnProperty('statements')) {
+                var stmts = response.statements;
+                var length = stmts.length;
+              } else {
+                var stmt = response;
+                var length = 1;
+              }
+
               $.growl({ title: "Status " + r.status + " " + r.statusText }, notificationSettings);
+
               if (response.more != "") {
                 gmore = response.more;
               } else {
                 gmore = null;
               }
               //console.log(gmore);
-              stmts = $.parseJSON(JSON.stringify(response.statements));
+
+              if (length > 0) {
+                if (stmt) {
+                  var stmts = $.parseJSON("[" + JSON.stringify(stmt) + "]");
+                } else {
+                  var stmts = $.parseJSON(JSON.stringify(stmts));
+                  console.log(stmts);
+                }
+              }
+
               $('#statement-list').DataTable().rows.add(stmts).draw();
               $('#statement-list').DataTable().page(curPage).draw(false);
               prettyPrint();
