@@ -13,7 +13,7 @@ require.config({
         datetimepicker: 'bootstrap-datetimepicker.min',
         growl: 'bootstrap-growl.min',
         xapiwrapper: 'xapiwrapper.min',
-        store: 'store+json2.min',
+        //store: 'store+json2.min',
     },
     shim: {
         datatables: {

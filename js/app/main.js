@@ -1,7 +1,7 @@
 define(function (require) {
   var $ = require('jquery');
   
-  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl', 'store'], function() {
+  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl'], function() {
 
     $(document).ready(function() {
       // Override any credentials put in the XAPIWrapper.js
