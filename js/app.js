@@ -11,7 +11,7 @@ require.config({
         prettify: 'prettify.min',
         moment: 'moment.min',
         datetimepicker: 'bootstrap-datetimepicker.min',
-        growl: 'bootstrap-growl.min',
+        notify: 'bootstrap-notify.min',
         xapiwrapper: 'xapiwrapper.min',
         //store: 'store+json2.min',
     },
@@ -34,7 +34,7 @@ require.config({
         datetimepicker: {
             deps: ['dtbootstrap', 'moment']
         },
-        growl: {
+        notify: {
             deps: ['dtbootstrap']
         }
     }

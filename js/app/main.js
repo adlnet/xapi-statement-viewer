@@ -1,7 +1,7 @@
 define(function (require) {
   var $ = require('jquery');
   
-  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'growl'], function() {
+  require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'notify'], function() {
 
     $(document).ready(function() {
       // Override any credentials put in the XAPIWrapper.js
@@ -80,7 +80,7 @@ define(function (require) {
       // Handle XAPIWrapper XHR Errors
       ADL.xhrRequestOnError = function(xhr, method, url, callback, callbackargs) {
         console.log(xhr);
-        $.growl({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
+        $.notify({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
       };
 
       var table = $('#statement-list').DataTable({
@@ -168,7 +168,7 @@ define(function (require) {
                 var length = 1;
               }
 
-              $.growl({ title: "Status " + r.status + " " + r.statusText }, notificationSettings);
+              $.notify({ title: "Status " + r.status + " " + r.statusText }, notificationSettings);
 
               if (response.more != "") {
                 gmore = response.more;
@@ -265,7 +265,7 @@ define(function (require) {
             var curPage = $('#statement-list').DataTable().page();
             getStatementsWithSearch(gmore, curPage);
           } else {
-            $.growl({ title: "No more statments!" }, notificationErrorSettings);
+            $.notify({ title: "No more statments!" }, notificationErrorSettings);
           }
           e.preventDefault();
         });
