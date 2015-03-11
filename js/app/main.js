@@ -4,6 +4,27 @@ define(function (require) {
   require(['xapiwrapper', 'datatables', 'cookie', 'transition', 'collapse', 'prettify', 'datetimepicker', 'notify'], function() {
 
     $(document).ready(function() {
+      // get an array with all querystring values
+      // example: var valor = getUrlVars()["valor"];
+      function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+        }
+        return vars;
+      }
+
+      // shim for old-style Base64 lib
+      function fromBase64(text){
+        if(CryptoJS && CryptoJS.enc.Base64) 
+          return CryptoJS.enc.Base64.parse(text).toString(CryptoJS.enc.Latin1);
+        else
+          return Base64.decode(text);
+      }
+
       // Override any credentials put in the XAPIWrapper.js
       function resetConfig() {
         $("#endpoint").val("https://lrs.adlnet.gov/xapi/");
@@ -28,15 +49,23 @@ define(function (require) {
       }
 
       function setupConfig() {
-        if (store.enabled && store.get("conf")) {
-            var config = store.get('conf');
-            $("#endpoint").val(config.endpoint);
-            $("#username").val(config.user);
-            $("#password").val(config.password);
-            var conf = {
-                "endpoint" : config.endpoint,
-                "auth" : "Basic " + toBase64(config.user + ":" + config.password),
-            };
+        var qs = getUrlVars();
+        if (qs['endpoint'] || qs['auth']) {
+          if (qs['endpoint']) { $("#endpoint").val(qs['endpoint']); }
+          if (qs['auth']) {
+            var auth = fromBase64(qs['auth'].replace('Basic%20','')).split(':');
+            $("#username").val(auth[0]);
+            $("#password").val(auth[1]);
+          }
+        } else if (store.enabled && store.get("conf")) {
+          var config = store.get('conf');
+          $("#endpoint").val(config.endpoint);
+          $("#username").val(config.user);
+          $("#password").val(config.password);
+          var conf = {
+              "endpoint" : config.endpoint,
+              "auth" : "Basic " + toBase64(config.user + ":" + config.password),
+          };
         } else {
           // get LRS credentials from user interface
           var endpoint = $("#endpoint").val();
@@ -52,6 +81,7 @@ define(function (require) {
         ADL.XAPIWrapper.changeConfig(conf);
       }
 
+      // Configure xAPIWrapper and save credentials
       setupConfig();
 
       var notificationSettings = {
@@ -79,7 +109,7 @@ define(function (require) {
 
       // Handle XAPIWrapper XHR Errors
       ADL.xhrRequestOnError = function(xhr, method, url, callback, callbackargs) {
-        console.log(xhr);
+        //console.log(xhr);
         $.notify({ title: "Status " + xhr.status + " " + xhr.statusText + ": ", message: xhr.response }, notificationErrorSettings);
       };
 
@@ -182,7 +212,7 @@ define(function (require) {
                   var stmts = $.parseJSON("[" + JSON.stringify(stmt) + "]");
                 } else {
                   var stmts = $.parseJSON(JSON.stringify(stmts));
-                  console.log(stmts);
+                  //console.log(stmts);
                 }
               }
 
