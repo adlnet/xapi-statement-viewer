@@ -133,7 +133,8 @@ define(function (require) {
             $('td:eq(0)', row).html( '<span title="' + data.timestamp + '">' + display.fromNow() + '</span>' );
             if (data.actor.hasOwnProperty('account') && data.actor.account.hasOwnProperty('name')) { $('td:eq(1)', row).html( data.actor.account.name ); }
             if (data.object.hasOwnProperty('name')) { $('td:eq(3)', row).html( data.object.name ); }
-            else if (data.object.definition.hasOwnProperty('name') == false && data.object.hasOwnProperty('id')) { $('td:eq(3)', row).html( data.object.id ); }
+            else if (data.object.hasOwnProperty('definition') && data.object.definition.hasOwnProperty('name') == false && data.object.hasOwnProperty('id')) { $('td:eq(3)', row).html( data.object.id ); }
+            else if (data.object.hasOwnProperty('id') ) { $('td:eq(3)', row).html( data.object.id ); }
           },
           "order": [[0, 'desc']],
           "pageLength": 25
