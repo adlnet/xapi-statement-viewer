@@ -202,7 +202,7 @@ define(function (require) {
                 var length = 1;
               }
 
-              $.notify({ title: "Status " + r.status + " " + r.statusText }, notificationSettings);
+              $.notify({ message: "Status " + r.status + " " + r.statusText }, notificationSettings);
 
               if (response.more != "") {
                 gmore = response.more;
@@ -299,7 +299,7 @@ define(function (require) {
             var curPage = $('#statement-list').DataTable().page();
             getStatementsWithSearch(gmore, curPage);
           } else {
-            $.notify({ title: "No more statments!" }, notificationErrorSettings);
+            $.notify({ message: "No more statments!" }, notificationErrorSettings);
           }
           e.preventDefault();
         });
