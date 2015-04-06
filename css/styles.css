@@ -2,6 +2,12 @@
 
 body { font-size: 140%; }
 
+table {
+    table-layout:fixed;
+}
+tbody td {
+    word-wrap:break-word !important;
+}
 td.details-control {
 	background: url('img/details_open.png') no-repeat center center;
 	cursor: pointer;

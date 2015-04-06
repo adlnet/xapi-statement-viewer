@@ -114,20 +114,30 @@ define(function (require) {
       };
 
       var table = $('#statement-list').DataTable({
+        /*"columnDefs": [
+          { "width": "15%", "targets": 0 },
+          { "width": "15%", "targets": 0 },
+          { "width": "15%", "targets": 0 },
+          { "width": "25%", "targets": 0 },
+          { "width": "25%", "targets": 0 },
+          { "width": "5%", "targets": 0 }
+        ],*/
         "columns": [
-          { data: "timestamp", "defaultContent": "" },
-          { data: "actor.name", "defaultContent": "" },
-          { data: "verb.display.en-US", "defaultContent": "" },
-          { data: "object.definition.name.en-US", "defaultContent": "" },
-          { data: "object.objectType", "defaultContent": "" },
-          { data: "authority.name", "defaultContent": "" },
-            {
-              "className":      'details-control',
-              "orderable":      false,
-              "data":           null,
-              "defaultContent": ''
-            }
+          { width: "10%", data: "timestamp", "defaultContent": "" },
+          { width: "17%", data: "actor.name", "defaultContent": "" },
+          { width: "13%", data: "verb.display.en-US", "defaultContent": "" },
+          { width: "28%", data: "object.definition.name.en-US", "defaultContent": "" },
+          { width: "12%", data: "object.objectType", "defaultContent": "" },
+          { width: "15%", data: "authority.name", "defaultContent": "" },
+          {
+            width: "5%",
+            "className":      'details-control',
+            "orderable":      false,
+            "data":           null,
+            "defaultContent": ''
+          }
           ],
+
           "rowCallback": function( row, data ) {
             var display = moment(data.timestamp);
             $('td:eq(0)', row).html( '<span title="' + data.timestamp + '">' + display.fromNow() + '</span>' );
