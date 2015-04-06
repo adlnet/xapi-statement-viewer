@@ -114,14 +114,6 @@ define(function (require) {
       };
 
       var table = $('#statement-list').DataTable({
-        /*"columnDefs": [
-          { "width": "15%", "targets": 0 },
-          { "width": "15%", "targets": 0 },
-          { "width": "15%", "targets": 0 },
-          { "width": "25%", "targets": 0 },
-          { "width": "25%", "targets": 0 },
-          { "width": "5%", "targets": 0 }
-        ],*/
         "columns": [
           { width: "10%", data: "timestamp", "defaultContent": "" },
           { width: "17%", data: "actor.name", "defaultContent": "" },
@@ -137,7 +129,6 @@ define(function (require) {
             "defaultContent": ''
           }
           ],
-
           "rowCallback": function( row, data ) {
             var display = moment(data.timestamp);
             $('td:eq(0)', row).html( '<span title="' + data.timestamp + '">' + display.fromNow() + '</span>' );

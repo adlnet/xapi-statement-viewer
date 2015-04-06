@@ -15,6 +15,10 @@ td.details-control {
 tr.shown td.details-control {
 	background: url('img/details_close.png') no-repeat center center;
 }
+.table-bordered>tfoot>tr>th {
+  border-left:0;
+  border-bottom:0;
+}
 
 pre {
 	font-size:10px;
