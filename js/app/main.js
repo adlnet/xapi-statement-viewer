@@ -107,6 +107,23 @@ define(function (require) {
 
       gmore = null;
 
+      $("#reset-search").click(function(e) {
+        $("#search-predefined-verb").val("");
+        $("#search-verb-sort").val("");
+        $("#search-user-verb-id").val("");
+        $("#search-actor-email").val("");
+        $("#search-related-agents").val("");
+        $("#search-activity-id").val("");
+        $("#search-related-activities").val("");
+        $("#search-registration-id").val("");
+        $("#search-statement-id").val("");
+        $("#search-voided-statement-id").val("");
+        $("#search-statements-since-date input").val("");
+        $("#search-statements-until-date input").val("");
+        $("#search-limit").val("");
+        e.preventDefault();
+      });
+
       // Handle XAPIWrapper XHR Errors
       ADL.xhrRequestOnError = function(xhr, method, url, callback, callbackargs) {
         //console.log(xhr);
