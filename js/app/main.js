@@ -163,7 +163,7 @@ define(function (require) {
       function getStatementsWithSearch(more, curPage) {
         var verbSort = $("#search-verb-sort").val();
         var verbId = $("#search-user-verb-id").val();
-        var actorEmail = $("#search-actor-email").val();
+        var actor = $("#search-actor").val();
         var relatedAgents = $("#search-related-agents").val();
         var activityId = $("#search-activity-id").val();
         var relatedActivities = $("#search-related-activities").val();
@@ -178,7 +178,7 @@ define(function (require) {
         var search = ADL.XAPIWrapper.searchParams();
         if (verbId != "") { search['verb'] = verbId; }
         if (verbSort != "") { search['ascending'] = verbSort; }
-        if (actorEmail != "") { search['agent'] = JSON.stringify({ "mbox": "mailto:" + actorEmail}); }
+        if (actor != "") { search['agent'] = actor; }
         if (relatedAgents != "") { search['related_agents'] = relatedAgents; }
         if (activityId != "") { search['activity'] = activityId; }
         if (relatedActivities != "") { search['related_activities'] = relatedActivities; }
