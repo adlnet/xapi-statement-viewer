@@ -3,17 +3,15 @@ A datatables and bootstrap based Experience API (xAPI) Statement viewer.
 
 Pulls xAPI Statements from a Learning Record Store (LRS) using [XAPIWrapper](https://github.com/adlnet/XAPIWrapper) and displays them nicely in a sortable and filterable table.
 
-#Installaion
+##Installation
 
-  1. run `git clone https://github.com/adlnet/xapi-statement-viewer`
+Run `git clone https://github.com/adlnet/xapi-statement-viewer`
 
-  2. open index.html
-  
-#Use
-Free to use, change and integrate into any of your projects.
+##Use
+Host the github project files on your server. Launch index.html.
 
-#Contributing to the Project
-Features requests are welcome.
+## Contributing to the project
+We welcome contributions to this project. Fork this repository, make changes, and submit pull requests. If you're not comfortable with editing the code, please [submit an issue](https://github.com/adlnet/xAPIWrapper/issues) and we'll be happy to address it. 
 
 ## License
    Copyright &copy;2016 Advanced Distributed Learning
