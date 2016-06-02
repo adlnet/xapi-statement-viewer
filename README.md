@@ -11,7 +11,7 @@ Run `git clone https://github.com/adlnet/xapi-statement-viewer`
 Host the github project files on your server. Launch index.html.
 
 ## Contributing to the project
-We welcome contributions to this project. Fork this repository, make changes, and submit pull requests. If you're not comfortable with editing the code, please [submit an issue](https://github.com/adlnet/xAPIWrapper/issues) and we'll be happy to address it. 
+We welcome contributions to this project. Fork this repository, make changes, and submit pull requests. If you're not comfortable with editing the code, please [submit an issue](https://github.com/adlnet/xapi-statement-viewer/issues) and we'll be happy to address it. 
 
 ## License
    Copyright &copy;2016 Advanced Distributed Learning
