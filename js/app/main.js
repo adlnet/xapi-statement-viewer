@@ -134,7 +134,16 @@ define(function (require) {
         "columns": [
           { width: "10%", data: "timestamp", "defaultContent": "" },
           { width: "17%", data: "actor.name", "defaultContent": "" },
-          { width: "13%", data: "verb.display.en-US", "defaultContent": "" },
+          { width: "13%", data: function (row, type, val, meta){
+            if ('display' in row.verb){
+              if (!('en-US' in row.verb.display)){
+                if ('en' in row.verb.display){
+                  return row.verb.display.en;
+                }
+              }
+              return row.verb.display['en-US'];
+            }
+          }, "defaultContent": "" },
           { width: "28%", data: "object.definition.name.en-US", "defaultContent": "" },
           { width: "12%", data: "object.objectType", "defaultContent": "" },
           { width: "15%", data: "authority.name", "defaultContent": "" },
