@@ -170,6 +170,8 @@ define(function (require) {
 
       // Retreive statements from the LRS
       function getStatementsWithSearch(more, curPage) {
+        $("#more").attr("disabled", true);
+
         var verbSort = $("#search-verb-sort").val();
         var verbId = $("#search-user-verb-id").val();
         var actor = $("#search-actor").val();
@@ -251,6 +253,8 @@ define(function (require) {
               $('#statement-list').DataTable().page(curPage).draw(false);
               prettyPrint();
             }
+
+            $("#more").attr("disabled", false);
           });
         }
 
